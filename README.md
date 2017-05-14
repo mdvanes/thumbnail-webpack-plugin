@@ -6,7 +6,10 @@ Webpack plugin to create thumbnails with node-thumbnail
 
 * add CI
 * add to npm
+* e2e should do a transformation and validate the output
+* add test coverage:  "test-travis": "istanbul cover _mocha -- -R spec ./test/*_spec.js"
 * eslint
+* docs
 
 # references
 
