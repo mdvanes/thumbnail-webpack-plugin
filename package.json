@@ -13,7 +13,9 @@
     "test": "mocha --recursive ./test/*.spec.js",
     "test:watch": "npm run test -- --watch",
     "test-travis": "istanbul cover _mocha -- -R spec ./test/*.spec.js",
-    "test:e2e": "node node_modules/.bin/webpack --config test/webpack.config.js"
+    "test:e2e": "node node_modules/.bin/webpack --config test/webpack.config.js",
+    "lint": "esw index.js test/index.spec.js --color",
+    "lint:watch": "npm run lint -- --watch"
   },
   "repository": {
     "type": "git",
@@ -25,9 +27,14 @@
     "url": "https://github.com/mdvanes/thumbnail-webpack-plugin/issues"
   },
   "homepage": "https://github.com/mdvanes/thumbnail-webpack-plugin#readme",
-  "dependencies": {
+  "devDependencies": {
     "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-watch": "^3.1.0",
     "mocha": "^3.3.0",
     "webpack": "^2.5.1"
+  },
+  "dependencies": {
+    "node-thumbnail": "^0.11.0"
   }
 }
