@@ -13,10 +13,10 @@ const common = {
     },
 
     plugins: [
-        new ThumbnailPlugin({
+        new ThumbnailPlugin([{
             source: './test/fixtures/pictures',
             destination: './temp/thumb'
-        })
+        }])
     ],
 
     module: {

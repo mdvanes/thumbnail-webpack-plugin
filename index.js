@@ -5,39 +5,31 @@
 
 const thumb = require('node-thumbnail').thumb;
 
-// function ThumbnailPlugin(options) {
-//     this.options = options;
-//     console.log('init' + options + ' ' + options.source);
-// }
-//
-// ThumbnailPlugin.prototype.apply = compiler => {
-//     //https://webpack.github.io/docs/plugins.html
-//
-//     compiler.plugin('emit', () => {
-//         console.log('emitting files. configured with options: ' + this.options);
-//         thumb(this.options);
-//     });
-//
-//     compiler.plugin('done', function() {
-//         console.log('Hello World!');
-//     });
-// };
-
 class ThumbnailPlugin {
     constructor(options) {
-        this.options = options;
-        console.log('x init' + options + ' ' + options.source);
+        if(Array.isArray(options)) {
+            this.options = options;
+        } else {
+            throw new Error('Expecting array of node-thumbnail configuration objects');
+        }
+        //console.log('init' + options + ' ' + options.source);
     }
 
     apply(compiler) {
         compiler.plugin('emit', () => {
-            console.log('x emitting files. configured with options: ' + this.options);
-            thumb(this.options);
+            //console.log('Emitting files. configured with options: ' + this.options);
+            //thumb(this.options[0]);
+            const thumbPromises = this.options.map(config => thumb(config));
+            Promise
+                .all(thumbPromises)
+                .catch(err => {
+                    throw new Error('Failed to transform' + err);
+                });
         });
 
-        compiler.plugin('done', function() {
-            console.log('ThumbnailPlugin completed');
-        });
+        // compiler.plugin('done', function() {
+        //     console.log('ThumbnailPlugin completed');
+        // });
     }
 }
 
